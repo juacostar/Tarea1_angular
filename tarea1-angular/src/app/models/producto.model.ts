@@ -1,9 +1,25 @@
 export class Producto{
-  nombre: String;
-  descripcion: String;
-
-  constructor(n:String, d:String){
-    this.nombre=n;
-    this.descripcion=d;
+  selected: boolean;
+  public votos = 0;
+  constructor(public nombre: string, public descripcion: string){
   }
+
+
+  isSelected(): boolean{
+    return this.selected;
+  }
+
+  setSelected(v: boolean): void{
+    this.selected = v;
+
+  }
+
+  voteUp(){
+    this.votos++;
+  }
+
+  voteDown(){
+    this.votos--;
+  }
+
 }

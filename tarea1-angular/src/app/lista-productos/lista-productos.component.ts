@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { NuevoProductoAction } from './../models/productos-states.model';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Producto } from './../models/producto.model';
+import { AppState } from '../app.module';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-lista-productos',
@@ -8,15 +11,19 @@ import { Producto } from './../models/producto.model';
 })
 export class ListaProductosComponent implements OnInit {
   productos: Producto[];
-  constructor() {
-    this.productos=[];
+  @Output() productoAgregado: EventEmitter<Producto>;
+  all;
+  constructor(private store: Store<AppState>) {
+    this.productos = [];
+    this.all = store.select(state => state.productos.items).subscribe(items => this.all = items);
    }
 
   ngOnInit(): void {
   }
 
-  guardar(nombre: String, descripcion: String): boolean{
-    this.productos.push(new Producto(nombre,descripcion));
+  agregado(p: Producto): boolean{
+    this.store.dispatch(new NuevoProductoAction(p));
+    console.log('se agreggoooooo');
     return false;
   }
 

@@ -1,2 +1,13 @@
 <title>Tarea 1</title>
-<app-lista-productos></app-lista-productos>
+<div class="container content">
+    <div class="page-header">
+        <div class="container">
+            <h1>Mas contenido</h1>
+            <div class="nav-links">
+                <a [routerLink]="['/home']">home  </a>
+                <a [routerLink]="['/detalle']">Detalle</a>
+            </div>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</div>
