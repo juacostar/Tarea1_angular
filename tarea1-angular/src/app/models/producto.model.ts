@@ -1,5 +1,6 @@
 export class Producto{
   selected: boolean;
+  public id: number;
   public votos = 0;
   constructor(public nombre: string, public descripcion: string){
   }

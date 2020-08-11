@@ -27,7 +27,8 @@ export enum ProductsActionTypes {
   NUEVO_PRODUCTO = '[Producto] Nuevo',
   ELEGIDO_FAVORITO = '[Producto] Favorito',
   VOTE_UP = '[Producto] Vote Up',
-  VOTE_DOWN = '[Producto] Vote Down'
+  VOTE_DOWN = '[Producto] Vote Down',
+  INIT_MY_DATA = '[Producto] Init My data'
 }
 
 export class NuevoProductoAction implements Action{
@@ -50,7 +51,13 @@ export class VoteDownAction implements Action{
   constructor(public producto: Producto){}
 }
 
-export type ProductosActions = NuevoProductoAction | ElegidoFavoritoAction | VoteUpAction | VoteDownAction;
+export class InitMyDataAction implements Action{
+  type = ProductsActionTypes.INIT_MY_DATA;
+  constructor(public productos: string[]){}
+}
+
+
+export type ProductosActions = NuevoProductoAction | ElegidoFavoritoAction | VoteUpAction | VoteDownAction | InitMyDataAction;
 
 // REDUCERS, respuestas ante los estados
 
@@ -85,10 +92,16 @@ export function reducerProductos(
       console.log('Se esta votando');
       return{...state};
     }
-  }
+    case ProductsActionTypes.INIT_MY_DATA: {
+      const destinos: string[] = (action as InitMyDataAction).productos;
+      return{
+        ...state,
+        items: destinos.map((d) => new Producto(d, ''))
+      };
+    }
   return state;
+  }
 }
-
 /*
 // EFFECTS
 @Injectable()
@@ -100,5 +113,3 @@ export class ProductosEffects {
   constructor(private actions$: Actions){}
 }
 */
-
-
